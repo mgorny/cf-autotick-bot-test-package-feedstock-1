@@ -18,6 +18,8 @@ requirements:
     - python {{ python_min }}.*
     - pip
     - setuptools
+    - __unix  # [unix]
+    - __win   # [win]
   run:
     - python >={{ python_min }}
 
