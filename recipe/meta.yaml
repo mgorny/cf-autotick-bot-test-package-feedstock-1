@@ -10,20 +10,22 @@ source:
   sha256: f6c45d5788f51dbe1cc55e1010f3e9ebd18b6c0f21907fc35499468a59827eef
 
 build:
+  noarch: python
   number: 128
-  skip: true  # [py != 313 or win or aarch64 or ppc64le or s390x]
 
 requirements:
   host:
-    - python
+    - python {{python_min}}.*
     - pip
     - setuptools
   run:
-    - python
+    - python >={{python_min}}
 
 test:
   commands:
     - echo "works!"
+  requires:
+    - python {{python_min}}.*
 
 about:
   home: https://github.com/regro/cf-scripts
