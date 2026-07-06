@@ -15,17 +15,17 @@ build:
 
 requirements:
   host:
-    - python {{python_min}}.*
+    - python {{ python_min }}.*
     - pip
     - setuptools
   run:
-    - python >={{python_min}}
+    - python >={{ python_min }}
 
 test:
   commands:
     - echo "works!"
   requires:
-    - python {{python_min}}.*
+    - python {{ python_min }}.*
 
 about:
   home: https://github.com/regro/cf-scripts
