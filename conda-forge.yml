@@ -16,3 +16,4 @@ noarch_platforms:
   - win_64
 workflow_settings:
   store_build_artifacts: true
+conda_build_tool: rattler-build
