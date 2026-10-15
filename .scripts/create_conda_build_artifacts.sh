@@ -122,8 +122,10 @@ EXCLUDE_FROM_WORK=(
 # Make the build artifact archive
 if [[ ! -z ${BLD_ARTIFACT_PREFIX} && -n ${ARTIFACT_PATHS} ]]; then
     echo "Creating build artifact archive ..."
-    export BLD_ARTIFACT_NAME="${BLD_ARTIFACT_PREFIX}_${ARTIFACT_UNIQUE_ID}"
-    export BLD_ARTIFACT_PATH="${ARTIFACT_STAGING_DIR}/${FEEDSTOCK_NAME}_${BLD_ARTIFACT_PREFIX}_${ARCHIVE_UNIQUE_ID}.tar.zst"
+    # Note: because of https://github.com/actions/upload-artifact/issues/785,
+    # *_ARTIFACT_NAME should be the filename of *_ARTIFACT_PATH
+    export BLD_ARTIFACT_NAME="${FEEDSTOCK_NAME}_${BLD_ARTIFACT_PREFIX}_${ARCHIVE_UNIQUE_ID}.tar.zst"
+    export BLD_ARTIFACT_PATH="${ARTIFACT_STAGING_DIR}/${BLD_ARTIFACT_NAME}"
 
     # All our CI services have either GNU tar or bsdtar, and zstd.
     # Keep the command compatible with both!
@@ -132,8 +134,8 @@ if [[ ! -z ${BLD_ARTIFACT_PREFIX} && -n ${ARTIFACT_PATHS} ]]; then
     then
         # If tar failed but produced a (partial?) file, upload it as "broken".
         mv -v "${BLD_ARTIFACT_PATH}" "${BLD_ARTIFACT_PATH/%.tar.zst/-broken&}"
-        BLD_ARTIFACT_NAME+=-broken
-        BLD_ARTIFACT_PATH=${BLD_ARTIFACT_PATH/%.tar.zst/-broken&}
+        BLD_ARTIFACT_NAME=${BLD_ARTIFACT_NAME/%.tar.zst/-broken&}
+        BLD_ARTIFACT_PATH="${ARTIFACT_STAGING_DIR}/${BLD_ARTIFACT_NAME}"
     fi
 
     if [[ -s ${BLD_ARTIFACT_PATH} ]]; then
