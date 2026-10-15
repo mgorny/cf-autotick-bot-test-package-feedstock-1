@@ -14,7 +14,7 @@ source:
 
 build:
   number: 0
-  skip: match(python, "!=3.13") or win or aarch64 or ppc64le or s390x or (osx and x86_64)
+  skip: match(python, "!=3.13")
 
 requirements:
   host:
