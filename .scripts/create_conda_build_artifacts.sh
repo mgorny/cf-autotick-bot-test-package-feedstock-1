@@ -135,7 +135,7 @@ if [[ ! -z ${BLD_ARTIFACT_PREFIX} && -n ${ARTIFACT_PATHS} ]]; then
         # If tar failed but produced a (partial?) file, upload it as "broken".
         mv -v "${BLD_ARTIFACT_PATH}" "${BLD_ARTIFACT_PATH/%.tar.zst/-broken&}"
         BLD_ARTIFACT_NAME=${BLD_ARTIFACT_NAME/%.tar.zst/-broken&}
-        BLD_ARTIFACT_PATH="${ARTIFACT_STAGING_DIR}/${BLD_ARTIFACT_NAME}"
+        BLD_ARTIFACT_PATH=${BLD_ARTIFACT_PATH/%.tar.zst/-broken&}
     fi
 
     if [[ -s ${BLD_ARTIFACT_PATH} ]]; then
@@ -172,7 +172,7 @@ if [[ ! -z ${WRK_ARTIFACT_PREFIX} ]]; then
         # If tar failed but produced a (partial?) file, upload it as "broken".
         mv -v "${WRK_ARTIFACT_PATH}" "${WRK_ARTIFACT_PATH/%.tar.zst/-broken&}"
         WRK_ARTIFACT_NAME=${WRK_ARTIFACT_NAME/%.tar.zst/-broken&}
-        WRK_ARTIFACT_PATH="${ARTIFACT_STAGING_DIR}/${WRK_ARTIFACT_NAME}"
+        WRK_ARTIFACT_PATH=${WRK_ARTIFACT_PATH/%.tar.zst/-broken&}
     fi
 
     if [[ -s ${WRK_ARTIFACT_PATH} ]]; then
@@ -206,7 +206,7 @@ if [[ ! -z ${ENV_ARTIFACT_PREFIX} && -n ${ENVIRONMENT_PATHS[@]} ]]; then
         # If tar failed but produced a (partial?) file, upload it as "broken".
         mv -v "${ENV_ARTIFACT_PATH}" "${ENV_ARTIFACT_PATH/%.tar.zst/-broken&}"
         ENV_ARTIFACT_NAME=${ENV_ARTIFACT_NAME/%.tar.zst/-broken&}
-        ENV_ARTIFACT_PATH="${ARTIFACT_STAGING_DIR}/${ENV_ARTIFACT_NAME}"
+        ENV_ARTIFACT_PATH=${ENV_ARTIFACT_PATH/%.tar.zst/-broken&}
     fi
 
     if [[ -s ${ENV_ARTIFACT_PATH} ]]; then
