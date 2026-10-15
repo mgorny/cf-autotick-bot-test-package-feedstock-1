@@ -99,9 +99,8 @@ rem Make the build artifact archive
 if defined BLD_ARTIFACT_PREFIX (
     if not "%ARTIFACT_PATHS%" == "" (
         echo Creating build artifact archive ...
-        set BLD_ARTIFACT_NAME=%BLD_ARTIFACT_PREFIX%_%ARTIFACT_UNIQUE_ID%
-
-        set "BLD_ARTIFACT_PATH=%ARTIFACT_STAGING_DIR%\%FEEDSTOCK_NAME%_%BLD_ARTIFACT_PREFIX%_%ARCHIVE_UNIQUE_ID%.tar.zst"
+        set "BLD_ARTIFACT_NAME=%FEEDSTOCK_NAME%_%BLD_ARTIFACT_PREFIX%_%ARCHIVE_UNIQUE_ID%.tar.zst"
+        set "BLD_ARTIFACT_PATH=%ARTIFACT_STAGING_DIR%\!BLD_ARTIFACT_NAME!"
         bsdtar -c -f "!BLD_ARTIFACT_PATH!" %ZSTD% %ARTIFACT_PATHS%
         if errorlevel 1 (
             if exist "!BLD_ARTIFACT_PATH!" (
@@ -136,9 +135,8 @@ echo.
 rem Make the work directory artifact archive
 if defined WRK_ARTIFACT_PREFIX (
     echo Creating work directory archive ...
-    set WRK_ARTIFACT_NAME=!WRK_ARTIFACT_PREFIX!_%ARTIFACT_UNIQUE_ID%
-
-    set "WRK_ARTIFACT_PATH=%ARTIFACT_STAGING_DIR%\%FEEDSTOCK_NAME%_%WRK_ARTIFACT_PREFIX%_%ARCHIVE_UNIQUE_ID%.tar.zst"
+    set "WRK_ARTIFACT_NAME=%FEEDSTOCK_NAME%_%WRK_ARTIFACT_PREFIX%_%ARCHIVE_UNIQUE_ID%.tar.zst"
+    set "WRK_ARTIFACT_PATH=%ARTIFACT_STAGING_DIR%\!WRK_ARTIFACT_NAME!"
     bsdtar -c -f "!WRK_ARTIFACT_PATH!" %ZSTD% %EXCLUDE_FROM_WORK% .
     if errorlevel 1 (
         if exist "!WRK_ARTIFACT_PATH!" (
@@ -171,9 +169,8 @@ rem Make the environment artifact archive
 if defined ENV_ARTIFACT_PREFIX (
     if not "%ENVIRONMENT_PATHS%" == "" (
         echo Creating build environment artifact archive ...
-        set ENV_ARTIFACT_NAME=!ENV_ARTIFACT_PREFIX!_%ARTIFACT_UNIQUE_ID%
-
-        set "ENV_ARTIFACT_PATH=%ARTIFACT_STAGING_DIR%\%FEEDSTOCK_NAME%_%ENV_ARTIFACT_PREFIX%_%ARCHIVE_UNIQUE_ID%.tar.zst"
+        set "ENV_ARTIFACT_NAME=%FEEDSTOCK_NAME%_%ENV_ARTIFACT_PREFIX%_%ARCHIVE_UNIQUE_ID%.tar.zst"
+        set "ENV_ARTIFACT_PATH=%ARTIFACT_STAGING_DIR%\!ENV_ARTIFACT_NAME!"
         bsdtar -c -f "!ENV_ARTIFACT_PATH!" %ZSTD% %ENVIRONMENT_PATHS%
         if errorlevel 1 (
             if exist "!ENV_ARTIFACT_PATH!" (
