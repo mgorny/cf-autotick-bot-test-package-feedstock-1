@@ -10,3 +10,5 @@ conda_build_tool: rattler-build
 provider:
   linux_64: github_actions
   osx_arm64: azure
+workflow_settings:
+  store_build_artifacts: true
